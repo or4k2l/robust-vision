@@ -2,7 +2,7 @@
 
 **Author:** Yahya Akbay
 **Affiliation:** Independent Researcher, Berlin, Germany
-**Contact:** yahya.akbay@example.com
+**Contact:** oneochrone@gmail.com
 **Code:** https://github.com/or4k2l/physical-pattern-matching
 
 ---
