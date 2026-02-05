@@ -45,9 +45,14 @@ More details are in [quick_start_guide.md](quick_start_guide.md).
 ---
 
 ## Results
-![Comprehensive comparison](https://github.com/user-attachments/assets/51ac68c1-11f6-4135-b37a-fddffe8878f9)
-![Ablation analysis](https://github.com/user-attachments/assets/9313ac04-264b-4e76-8015-6dd44131563f)
-![Theoretical analysis](https://github.com/user-attachments/assets/1ef0cb46-2cba-4377-a041-1c92dcce2cb6)
+![Comprehensive comparison](assets/comprehensive_comparison.png)
+Comprehensive comparison across noise levels (physical vs digital vs CNN).
+
+![Ablation analysis](assets/ablation_analysis.png)
+Conductance range ablation: robustness, accuracy, saturation, and weight variability.
+
+![Theoretical analysis](assets/theoretical_analysis.png)
+Theory visuals for saturation, noise sensitivity, and implicit regularization.
 
 ---
 
@@ -84,13 +89,15 @@ Ideas that would help most:
 ## Links
 
 - Quick start: [quick_start_guide.md](quick_start_guide.md)
+- Colab notebook: [notebook.ipynb](notebook.ipynb)
+- Custom data: [CUSTOM_DATA.md](CUSTOM_DATA.md)
+- Contributing: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Submission guide: [submission_guide.md](submission_guide.md)
 - GitHub setup: [github_setup_checklist.md](github_setup_checklist.md)
 - Issues: https://github.com/or4k2l/physical-pattern-matching/issues
 - Discussions: https://github.com/or4k2l/physical-pattern-matching/discussions
-- Issues: https://github.com/or4k2l/physical-pattern-matching/issues
 
-- Discussions: https://github.com/or4k2l/physical-pattern-matching/discussions
+
 
 
 
