@@ -15,6 +15,7 @@ class TrainStateWithEMA(train_state.TrainState):
     EMA parameters provide more stable predictions and often better generalization.
     """
     
+    batch_stats: Any = None  # Batch statistics for BatchNorm layers
     ema_params: Optional[Any] = None
     ema_decay: float = 0.99
     
@@ -25,7 +26,7 @@ class TrainStateWithEMA(train_state.TrainState):
             return self.replace(ema_params=self.params)
         else:
             # Update EMA: ema = decay * ema + (1 - decay) * params
-            new_ema = jax.tree_map(
+            new_ema = jax.tree.map(  # Use new API: jax.tree.map instead of jax.tree_map
                 lambda ema, p: self.ema_decay * ema + (1 - self.ema_decay) * p,
                 self.ema_params,
                 self.params
@@ -40,6 +41,7 @@ class TrainStateWithEMA(train_state.TrainState):
         params,
         tx,
         ema_decay: float = 0.99,
+        batch_stats: Any = None,
         **kwargs
     ):
         """
@@ -50,6 +52,7 @@ class TrainStateWithEMA(train_state.TrainState):
             params: Initial parameters
             tx: Optax optimizer
             ema_decay: EMA decay rate
+            batch_stats: Batch statistics for BatchNorm
             **kwargs: Additional arguments for TrainState
             
         Returns:
@@ -61,10 +64,11 @@ class TrainStateWithEMA(train_state.TrainState):
             tx=tx,
             **kwargs
         )
-        # Initialize EMA params with current params
+        # Initialize EMA params with current params and batch_stats
         return state.replace(
             ema_params=params,
-            ema_decay=ema_decay
+            ema_decay=ema_decay,
+            batch_stats=batch_stats if batch_stats is not None else {}
         )
 
 
@@ -90,8 +94,16 @@ def create_train_state(
     Returns:
         TrainStateWithEMA instance
     """
-    # Initialize parameters
-    params = model.init(rng, jnp.ones(input_shape), training=False)
+    # Initialize parameters and batch_stats
+    variables = model.init(rng, jnp.ones(input_shape), training=False)
+    
+    # Extract params and batch_stats if they exist
+    if isinstance(variables, dict) and 'params' in variables:
+        params = variables['params']
+        batch_stats = variables.get('batch_stats', {})
+    else:
+        params = variables
+        batch_stats = {}
     
     # Create optimizer with weight decay
     if weight_decay > 0:
@@ -104,7 +116,8 @@ def create_train_state(
         apply_fn=model.apply,
         params=params,
         tx=tx,
-        ema_decay=ema_decay
+        ema_decay=ema_decay,
+        batch_stats=batch_stats
     )
     
     return state
