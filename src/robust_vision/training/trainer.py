@@ -187,8 +187,11 @@ class ProductionTrainer:
             loss_fn, has_aux=True
         )(state.params)
         
-        # Update parameters and batch_stats
-        state = state.apply_gradients(grads=grads, batch_stats=new_batch_stats)
+        # Update parameters
+        state = state.apply_gradients(grads=grads)
+        
+        # Update batch_stats separately
+        state = state.replace(batch_stats=new_batch_stats)
         
         # Update EMA
         state = state.apply_ema_update()

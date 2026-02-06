@@ -44,20 +44,18 @@ class ScalableDataLoader:
         self.prefetch = prefetch
         self.augment = augment
         
-    def preprocess(self, example, training: bool = False):
+    def preprocess(self, image, label, training: bool = False):
         """
         Preprocess a single example.
         
         Args:
-            example: Dictionary with 'image' and 'label' keys
+            image: Input image tensor
+            label: Label tensor
             training: Whether in training mode
             
         Returns:
             Preprocessed (image, label) tuple
         """
-        image = example['image']
-        label = example['label']
-        
         # Resize if needed
         if image.shape[:2] != self.image_size:
             image = tf.image.resize(image, self.image_size)
@@ -88,10 +86,11 @@ class ScalableDataLoader:
         Returns:
             TensorFlow dataset
         """
+        # Use as_supervised=True to get (image, label) tuples directly
         ds = tfds.load(
             self.dataset_name,
             split=split,
-            as_supervised=False,
+            as_supervised=True,
             shuffle_files=(split == 'train')
         )
         
@@ -114,10 +113,10 @@ class ScalableDataLoader:
         if split == 'train':
             ds = ds.shuffle(10000)
         
-        # Preprocess
+        # Preprocess - with as_supervised=True, dataset yields (image, label) tuples
         training = (split == 'train')
         ds = ds.map(
-            lambda x: self.preprocess(x, training=training),
+            lambda image, label: self.preprocess(image, label, training=training),
             num_parallel_calls=tf.data.AUTOTUNE
         )
         

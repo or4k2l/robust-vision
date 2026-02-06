@@ -136,7 +136,8 @@ class NoiseLibrary:
         height = images.shape[1]
         width = images.shape[2]
         
-        occluded = images.copy()
+        # JAX arrays are immutable, start with original
+        occluded = images
         
         for _ in range(num_patches):
             # Random positions for patches
@@ -144,7 +145,7 @@ class NoiseLibrary:
             y_positions = jax.random.randint(key1, (batch_size,), 0, height - patch_size)
             x_positions = jax.random.randint(key2, (batch_size,), 0, width - patch_size)
             
-            # Apply occlusion (set to black)
+            # Apply occlusion (set to black) - each .at[].set() returns a new array
             for i in range(batch_size):
                 y = int(y_positions[i])
                 x = int(x_positions[i])
