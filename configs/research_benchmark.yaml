@@ -1,0 +1,29 @@
+# Reproduces paper experiments exactly
+
+experiment: "paper_reproduction"
+
+models:
+  - name: "Hebbian_Unconstrained"
+    learning_rule: "hebbian"
+    clip_range: null
+    
+  - name: "Hebbian_Physical"
+    learning_rule: "hebbian"
+    clip_range: [0, 1]
+    
+  - name: "CNN_Margin"
+    learning_rule: "sgd"
+    loss_type: "margin"
+    margin_lambda: 10.0
+    
+  - name: "CNN_Standard"
+    learning_rule: "sgd"
+    loss_type: "cross_entropy"
+
+evaluation:
+  noise_types: ["gaussian", "salt_pepper", "fog", "occlusion"]
+  noise_levels: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]
+  
+output:
+  generate_paper_plots: true
+  format: "publication"  # 300 DPI, LaTeX-ready

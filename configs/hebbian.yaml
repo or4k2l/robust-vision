@@ -1,0 +1,7 @@
+training:
+  learning_rule: "hebbian"  # NEW!
+  loss_type: "correlation"  # Implicit margin maximization
+
+  hebbian:
+    clip_range: null  # Unconstrained (best: SNR=274)
+    # clip_range: [0, 1]  # Physical (reduces to SNR=169)

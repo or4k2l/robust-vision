@@ -1,0 +1,41 @@
+% Systematic Decomposition of Neural Network Robustness
+% Yahya Akbay
+% February 2026
+
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\begin{document}
+
+\title{A Systematic Decomposition of Neural Network Robustness:\\
+Learning Rules, Loss Functions, and Hardware Constraints for\\
+Safety-Critical Pattern Recognition}
+
+\author{
+\IEEEauthorblockN{Yahya Akbay}
+\IEEEauthorblockA{\textit{Independent Researcher}\\
+Berlin, Germany\\
+oneochrone@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+Safety-critical applications demand not only accurate predictions but high-confidence margins to ensure reliable operation under sensor degradation and environmental uncertainty. We present the first systematic decomposition of robustness sources in neural networks through controlled experiments on KITTI autonomous driving data. By isolating three factors—learning rules, hardware constraints, and loss functions—we reveal their relative importance: (1) \textbf{Loss function design} dominates, with explicit margin optimization improving signal-to-noise ratio (SNR) by 375×; (2) \textbf{Learning rules} matter significantly, with Hebbian learning achieving 133× higher SNR than gradient descent through natural margin maximization; (3) \textbf{Hardware constraints} reduce performance by 62\%, challenging assumptions about beneficial physical limitations. Our best approach (CNN with margin loss) achieves SNR of 2399 on KITTI depth images under 70\% Gaussian noise, while maintaining 100\% classification accuracy. These findings provide actionable design principles for both digital and neuromorphic AI systems, demonstrating that explicit confidence optimization should be the primary focus, regardless of implementation substrate.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Neural network robustness, margin maximization, Hebbian learning, neuromorphic computing, autonomous driving, safety-critical AI, confidence estimation
+\end{IEEEkeywords}
+
+% ...existing code (full paper as provided by user)...
+
+\end{document}
