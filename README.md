@@ -1,5 +1,7 @@
 <img width="1776" height="1176" alt="Herunterladen (1)" src="https://github.com/user-attachments/assets/ac5228a8-d667-4423-af67-bd6a8aa9bc31" />
 
+<img width="1772" height="1189" alt="Herunterladen" src="https://github.com/user-attachments/assets/41620761-3fcf-43f7-8e25-46d11b2e54e3" />
+
 [![Research Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b.svg)](https://arxiv.org/abs/2502.XXXXX)
 [![Reproducibility](https://img.shields.io/badge/Reproducibility-100%25-success.svg)](#)
 # Reproducing Research Results
